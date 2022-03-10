@@ -16,7 +16,6 @@ const Search: FC<SearchProps> = ({ title }) => {
 
     const changeHandler = (e: FormEvent<HTMLInputElement>) => {
         setCity(e.currentTarget.value);
-        console.log("bin in change in search");
     }
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
@@ -25,7 +24,6 @@ const Search: FC<SearchProps> = ({ title }) => {
     
         return dispatch(setAlert('city is required!'));
         }
-        console.log("bin in submit in search");
         dispatch(setLoading());
         dispatch(getweather(city));
         setCity('');

@@ -3,7 +3,8 @@ import { FC, useState, FormEvent} from 'react';
 import { useDispatch } from 'react-redux';
 import { isFunctionLike } from 'typescript';
 import { setAlert } from '../store/actions/alertActions';
-import { getweather, setLoading, getServerData } from '../store/actions/weatherActions';
+import { getweather, setLoading} from '../store/actions/weatherActions';
+import {  getServerData } from '../store/actions/serverActions';
 
 
 interface SearchProps {
@@ -101,7 +102,7 @@ const AdditionalInputs: FC<SearchProps> = ({ title }) => {
                             <div className="control">
                                 <div className="select">
                                     <select onChange={changeHandlerSelect}>
-                                        <option selected value={city} >Graz</option>
+                                        <option value={city} >Graz</option>
                                         <option value={city}>Kaindorf</option>
                                         <option value={city}>Wien</option>
                                         <option value={city}>Paris</option>

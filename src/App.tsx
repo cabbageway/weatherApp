@@ -20,7 +20,8 @@ const App: FC = () => {
   return (
     <div className="has-text-centered">
       <Search title='Enter city name and press search button' />
-      {loading ? <h2 className='is-size-3 py-2'>Loading ...</h2> : weatherData && <Weather data= {weatherData} />}
+      {loading ? <h2 className='is-size-3 py-2'>Loading ...</h2> 
+                : weatherData && <Weather data= {weatherData} />}
       {alertMsg && <Alert message={alertMsg} onClose={()=>dispatch(setAlert(''))} />}
       {error && <Alert message={error} onClose={() => dispatch(setError())} />}
       <AdditionalInputs title="Diese Elemente sind nur für Javascript Tests notwendig" />

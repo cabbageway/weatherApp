@@ -8,9 +8,11 @@ interface WeatherProps {
 
 const Weather: FC<WeatherProps> = ({ data }) => {
     const fahrenheit = (data.main.temp * 1.8 - 459.67).toFixed(2);
-    const celsius =  (data.main.temp * 1.8 - 273.15).toFixed(2);
-
+    const celsius =  (data.main.temp - 273.15).toFixed(2);
+   
+    const url = 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '.png';
     return (
+        
         <section className='section'>
             <div className='container'>
                 <h1 className='title has-text-centered' style={{ marginBottom: 50 }}>{data.name} -
@@ -19,11 +21,11 @@ const Weather: FC<WeatherProps> = ({ data }) => {
                     <div className='level-item has-text-centered'>
                         <div>
                         <p className='heading'>{data.weather[0].description} </p>
-                        <p className='title'><img src={'http://openweathermap.org/img/wn/${data.weather[0].icon}.png'} alt=""/> </p>
+                        <p className='title'><img src={url} alt=""/> </p>
                         </div>
                     </div>
                     <div className='title'>
-                        <p className='mb-2'>data.main.temp</p>
+                        <p className='mb-2'>{data.main.temp} Kelvin</p>
                         <p className='mb-2'>{fahrenheit} <sup>&#8457;</sup></p>
                         <p className='mb-2'>{celsius} <sup>&#8451;</sup></p>
                     </div>

@@ -21,7 +21,6 @@ export class CityInputPageObject extends BasePageObject {
     return cy.get(this.searchBtnSelector);
   }
 
-
   enterCity = (city: string): CityInputPageObject => {
     this.cityInput.type(city);
     return this;
@@ -32,5 +31,5 @@ export class CityInputPageObject extends BasePageObject {
     return new WeatherResultPageObject();
   };
 
-  searchCity=()=>{}
+  searchCity = () => {};
 }

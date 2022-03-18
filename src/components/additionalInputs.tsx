@@ -1,10 +1,10 @@
-import { FC, useState, FormEvent} from 'react';
+import { FC, useState, FormEvent } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { isFunctionLike } from 'typescript';
 import { setAlert } from '../store/actions/alertActions';
-import { getweather, setLoading} from '../store/actions/weatherActions';
-import {  getServerData } from '../store/actions/serverActions';
+import { getweather, setLoading } from '../store/actions/weatherActions';
+import { getServerData } from '../store/actions/serverActions';
 
 
 interface SearchProps {
@@ -16,43 +16,51 @@ const AdditionalInputs: FC<SearchProps> = ({ title }) => {
     const [city, setCity] = useState('');
     const [username, setUsername] = useState('');
     const [date, setDate] = useState('');
+    const [area, setArea] = useState('');
 
 
-    const changeHandler = (e: FormEvent<HTMLSelectElement | HTMLInputElement> ) => {
+    const changeHandler = (e: FormEvent<HTMLSelectElement | HTMLInputElement>) => {
         setCity(e.currentTarget.value);
-        //console.log("City:  " + city);
-        }
+    }
 
-        const changeHandlerDate = (e: FormEvent< HTMLInputElement> ) => {
-            setDate(e.currentTarget.value);
-            //console.log("City:  " + city);
-            }
+    const changeHandlerDate = (e: FormEvent<HTMLInputElement>) => {
+        setDate(e.currentTarget.value);
+    }
 
-        const changeHandlerSelect = (e: FormEvent<HTMLOptionElement | HTMLSelectElement> ) => {
-            setCity(e.currentTarget.value);
-            console.log("City:  " + city);
-            } 
+    const changeHandlerSelect = (e: FormEvent<HTMLOptionElement | HTMLSelectElement>) => {
+        setCity(e.currentTarget.value);
+        console.log("City:  " + city);
+    }
 
 
 
-        const changeHandlerUsername = (e: FormEvent<HTMLInputElement> ) => {
-            setUsername(e.currentTarget.value);
-            //console.log("Username:  " + username);
-            }
+    const changeHandlerUsername = (e: FormEvent<HTMLInputElement>) => {
+        setUsername(e.currentTarget.value);
+        //console.log("Username:  " + username);
+    }
 
+    const changeHandlerTextArea = (e: FormEvent<HTMLTextAreaElement>) => {
+        setArea(e.currentTarget.value);
         
+    }
 
-    const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+
+
+
+
+    const submitHandler = (e: FormEvent<HTMLFormElement | HTMLAreaElement>) => {
         e.preventDefault();
         if (city.trim() === '') {
 
             return dispatch(setAlert('city is required!'));
         }
-      
+
         dispatch(setLoading());
         dispatch(getweather(city));
         dispatch(getServerData());  // Aufruf der Serverfunktion
-        checkFunki(username, date);  // interne JS Funktion für die Tests
+        const txt = checkFunki(username, date);  // interne JS Funktion für die Tests
+        setArea(txt);
+
         setCity('');
     }
 
@@ -61,30 +69,30 @@ const AdditionalInputs: FC<SearchProps> = ({ title }) => {
             <div className="hero-body">
                 <div className="container">
                     <h1 className="title">{title}</h1>
-                                  
-                    <form onSubmit={submitHandler} className="py-5" >
+
+                    <form  onSubmit={submitHandler} className="py-5" >
                         <input type="text" className="input "
                             placeholder="Enter City Name" style={{ maxWidth: 300 }}
                             value={city}
                             onChange={changeHandler} />
-                            
-                        
-                        
+
+
+
                         <div className="field">
                             <label className="label">Date</label>
                             <div className="control">
-                                <input className="input" type="date" placeholder="Text input" 
-                                value={date}
-                                onChange={changeHandlerDate}/>
+                                <input className="input" type="date" placeholder="Text input"
+                                    value={date}
+                                    onChange={changeHandlerDate} />
                             </div>
                         </div>
 
                         <div className="field">
                             <label className="label">Username</label>
                             <div className="control has-icons-left has-icons-right">
-                                <input className="input is-success" type="text" 
-                                placeholder="Text input"  value={username}
-                                onChange={changeHandlerUsername}/>
+                                <input className="input is-success" type="text"
+                                    placeholder="Text input" value={username}
+                                    onChange={changeHandlerUsername} />
                                 <span className="icon is-small is-left">
                                     <i className="fas fa-user"></i>
                                 </span>
@@ -95,7 +103,7 @@ const AdditionalInputs: FC<SearchProps> = ({ title }) => {
                             <p className="help is-success">This username is available</p>
                         </div>
 
-                     
+
 
                         <div className="field">
                             <label className="label">Ort</label>
@@ -115,7 +123,7 @@ const AdditionalInputs: FC<SearchProps> = ({ title }) => {
                         <div className="field">
                             <label className="label">Message</label>
                             <div className="control">
-                                <textarea className="textarea" placeholder="Textarea"></textarea>
+                                <textarea  className="textarea" value={area} placeholder="Textarea" onChange={changeHandlerTextArea}></textarea>
                             </div>
                         </div>
 
@@ -145,18 +153,21 @@ const AdditionalInputs: FC<SearchProps> = ({ title }) => {
                             <div className="control">
                                 <button className="button is-link">Submit</button>
                             </div>
-                           
+
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-       
+
     );
 }
 
-const checkFunki = (user:string, date:string) => {
-    console.log("berechne was mit den Werten " + user  + date);
+const checkFunki = (user: string, date: string) => {
+    console.log("berechne was mit den Werten :" + user + " eingeloggt am " + date);
+    const txt = user + " eingeloggt am " + date;
+    return txt;
+
 }
 
 

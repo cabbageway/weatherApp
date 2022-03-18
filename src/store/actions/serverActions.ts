@@ -13,12 +13,15 @@ export const getServerData = (): ThunkAction<void, RootState, null, UserAction> 
            let url = 'http://localhost:8000/api/users';
           
            
-            const resData: UserData = (await axios.get(url)).data 
+            const resData: UserData[] = (await axios.get(url)).data 
             console.log("Serveraufruf OK" , resData);
-            console.log(resData.Date + " " + resData.ID + " " + resData.Location + " " + resData.Name);
+            resData.forEach(data=>{
+                console.log(data.Date + " " + data.ID + " " + data.Location + " " + data.Name);
+            });
+            
             dispatch({
                 type: GET_USER,
-                payload: resData
+                payload: resData[0]
             });
         } catch (err) {
             console.log("bin in err");

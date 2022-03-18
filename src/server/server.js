@@ -10,7 +10,7 @@ const table = 'users';
 const pool = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "",
+    password: "root",
     database: "reactdb",
 });
 
